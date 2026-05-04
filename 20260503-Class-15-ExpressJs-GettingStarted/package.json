@@ -1,0 +1,30 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "description": "This is a demonstration of using ExpressJs",
+  "keywords": [
+    "NotesApp",
+    "notes",
+    "express"
+  ],
+  "homepage": "https://github.com/DependerKumarSoni/CB-LB-WD-23-March-Batch-Codes#readme",
+  "bugs": {
+    "url": "https://github.com/DependerKumarSoni/CB-LB-WD-23-March-Batch-Codes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DependerKumarSoni/CB-LB-WD-23-March-Batch-Codes.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
