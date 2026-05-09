@@ -1,0 +1,16 @@
+[
+  {
+    "id": "dfc0356a-b658-4393-8206-1a866b1c1b9e",
+    "name": "Ria Saraswat",
+    "email": "rsaraswat@gmail.com",
+    "password": "$2b$10$loWaIBc2PCBFZ5Cg6iLsJu3Br.py8/3lL9AY4guc5Yo4ol2iOzPz6",
+    "role": "Student"
+  },
+  {
+    "id": "4ea45d20-f8ec-4eab-9823-49866aa5cd06",
+    "name": "Depender",
+    "email": "depender@gmail.com",
+    "password": "$2b$10$.6XMqfGltfdGWcQnVyYiTO0WWVeI80lQe09OmYpyfVQ8hjf0KLqse",
+    "role": "Student"
+  }
+]
