@@ -1,0 +1,23 @@
+[
+  {
+    "id": "dfc0356a-b658-4393-8206-1a866b1c1b9e",
+    "name": "Ria Saraswat",
+    "email": "rsaraswat@gmail.com",
+    "password": "$2b$10$loWaIBc2PCBFZ5Cg6iLsJu3Br.py8/3lL9AY4guc5Yo4ol2iOzPz6",
+    "role": "Student"
+  },
+  {
+    "id": "4ea45d20-f8ec-4eab-9823-49866aa5cd06",
+    "name": "Depender",
+    "email": "depender@gmail.com",
+    "password": "$2b$10$.6XMqfGltfdGWcQnVyYiTO0WWVeI80lQe09OmYpyfVQ8hjf0KLqse",
+    "role": "Student"
+  },
+  {
+    "id": "0a8282b8-b8c0-46e4-945b-9683e80c6ffd",
+    "name": "Prateek Thakur",
+    "email": "p.thakur@gmail.com",
+    "password": "$2b$10$l3iYSd4jaU7EotrrrbNfMu6Id9O8p4TflIKo6qdBmdwbzJumoJlXS",
+    "role": "Student"
+  }
+]
