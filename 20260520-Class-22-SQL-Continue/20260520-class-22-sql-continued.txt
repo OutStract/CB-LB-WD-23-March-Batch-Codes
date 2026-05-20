@@ -1,0 +1,718 @@
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| banking_db         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| school_db          |
+| sys                |
+| test               |
++--------------------+
+7 rows in set (0.032 sec)
+
+MariaDB [(none)]> use banking_db;
+Database changed
+MariaDB [banking_db]> show tables;
++----------------------+
+| Tables_in_banking_db |
++----------------------+
+| accounts             |
++----------------------+
+1 row in set (0.003 sec)
+
+MariaDB [banking_db]> show * from accounts;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from accounts' at line 1
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |     100 |
++----+-----------+---------+
+2 rows in set (0.026 sec)
+
+MariaDB [banking_db]> INSERT INTO accounts VALUES (3, 'Nikshap', 2000);
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]> START TRANSACTION;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |     100 |
+|  3 | Nikshap   |    2000 |
++----+-----------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance - 100 WHERE id = 2 AND balance >= 100;
+Query OK, 1 row affected (0.019 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |    2000 |
++----+-----------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance + 100 WHERE id = 1;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [banking_db]> ROLLBACK;
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |     100 |
+|  3 | Nikshap   |    2000 |
++----+-----------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance - 100 WHERE id = 2 AND balance >= 100;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |    2000 |
++----+-----------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [banking_db]> ROLLBACK;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |    2000 |
++----+-----------+---------+
+3 rows in set (0.002 sec)
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance + 100 WHERE id = 2 AND balance >= 100;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]>
+MariaDB [banking_db]> START TRANSACTION;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [banking_db]> INSERT INTO accounts VALUES (4, Modi, 0);
+ERROR 1054 (42S22): Unknown column 'Modi' in 'VALUES'
+MariaDB [banking_db]> INSERT INTO accounts VALUES (4, 'Modi', 0);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [banking_db]> select * from accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |    2000 |
+|  4 | Modi      |       0 |
++----+-----------+---------+
+4 rows in set (0.001 sec)
+
+MariaDB [banking_db]> SAVEPOINT modi_added;
+Query OK, 0 rows affected (0.004 sec)
+
+MariaDB [banking_db]> UPDATE account SET balance = balance - 2000 where id = 3 and balance >= 2000;
+ERROR 1146 (42S02): Table 'banking_db.account' doesn't exist
+MariaDB [banking_db]> UPDATE accounts SET balance = balance - 2000 where id = 3 and balance >= 2000;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance + 2000 where id = 4;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [banking_db]> SELECT * FROM accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |       0 |
+|  4 | Modi      |    2000 |
++----+-----------+---------+
+4 rows in set (0.001 sec)
+
+MariaDB [banking_db]> SAVEPOINT nikshap_donated_to_modi;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance - 1900 where id = 1 and balance >= 1900;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [banking_db]> UPDATE accounts SET balance = balance + 1900 where id = 5;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [banking_db]> SELECT * FROM accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |       0 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |       0 |
+|  4 | Modi      |    2000 |
++----+-----------+---------+
+4 rows in set (0.001 sec)
+
+MariaDB [banking_db]> ROLLBACK TO nikshap_donated_to_modi;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [banking_db]> SELECT * FROM accounts;
++----+-----------+---------+
+| id | name      | balance |
++----+-----------+---------+
+|  1 | Chaitanya |    1900 |
+|  2 | Depender  |       0 |
+|  3 | Nikshap   |       0 |
+|  4 | Modi      |    2000 |
++----+-----------+---------+
+4 rows in set (0.001 sec)
+
+MariaDB [banking_db]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| banking_db         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| school_db          |
+| sys                |
+| test               |
++--------------------+
+7 rows in set (0.023 sec)
+
+MariaDB [banking_db]> use school_db;
+Database changed
+MariaDB [school_db]> show tables;
++---------------------+
+| Tables_in_school_db |
++---------------------+
+| students            |
++---------------------+
+1 row in set (0.004 sec)
+
+MariaDB [school_db]> select * from students;
++------------+------------+-----------+------+-------+-----------------+-------------------+
+| student_id | first_name | last_name | age  | grade | location        | email             |
++------------+------------+-----------+------+-------+-----------------+-------------------+
+|          1 | Prateek    | Thakur    |   20 | A     | Delhi, India    | pthakur@gmail.com |
+|          2 | Saarika    | Kohli     |   19 | A     | Dehradun, India | skohli@gmail.com  |
+|          3 | Sayeedul   | Haque     |   19 | A     | Jaipur, India   | shaque@gmail.com  |
+|          4 | Prerna     | Sharma    |   20 | A     | Haryana, India  | psharma@gmail.com |
+|          5 | Depender   | Soni      |   26 | B     | Delhi, India    | dsoni@gmail.com   |
++------------+------------+-----------+------+-------+-----------------+-------------------+
+5 rows in set (0.006 sec)
+
+MariaDB [school_db]> CREATE TABLE subjects (sub_id: INT, sub_name: VARCHAR(50), enrolled_stu_id: INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ': INT, sub_name: VARCHAR(50), enrolled_stu_id: INT)' at line 1
+MariaDB [school_db]> CREATE TABLE subjects (sub_id INT, sub_name VARCHAR(50), enrolled_stu_id INT);
+Query OK, 0 rows affected (0.066 sec)
+
+MariaDB [school_db]> show tables;
++---------------------+
+| Tables_in_school_db |
++---------------------+
+| students            |
+| subjects            |
++---------------------+
+2 rows in set (0.002 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (101, 'Physics', 1);
+Query OK, 1 row affected (0.016 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (101, 'Physics', 3);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (101, 'Physics', 5);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (102, 'MATHEMATICS', 5);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (102, 'MATHEMATICS', 4);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (103, 'History', 2);
+Query OK, 1 row affected (0.015 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (103, 'History', 5);
+Query OK, 1 row affected (0.015 sec)
+
+MariaDB [school_db]> select * from subjects;
++--------+-------------+-----------------+
+| sub_id | sub_name    | enrolled_stu_id |
++--------+-------------+-----------------+
+|    101 | Physics     |               1 |
+|    101 | Physics     |               3 |
+|    101 | Physics     |               5 |
+|    102 | MATHEMATICS |               5 |
+|    102 | MATHEMATICS |               4 |
+|    103 | History     |               2 |
+|    103 | History     |               5 |
++--------+-------------+-----------------+
+7 rows in set (0.001 sec)
+
+MariaDB [school_db]> SELECT s.student_id as stu_id, sub.sub_name FROM students s, subjects sub INNER JOIN ON s.student_id = sub.enrolled_stu_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ON s.student_id = sub.enrolled_stu_id' at line 1
+MariaDB [school_db]> SELECT s.student_id as stu_id, sub.sub_name FROM students s INNER JOIN subjects sub ON s.student_id = sub.enrolled_stu_id;
++--------+-------------+
+| stu_id | sub_name    |
++--------+-------------+
+|      1 | Physics     |
+|      3 | Physics     |
+|      5 | Physics     |
+|      5 | MATHEMATICS |
+|      4 | MATHEMATICS |
+|      2 | History     |
+|      5 | History     |
++--------+-------------+
+7 rows in set (0.010 sec)
+
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> INNER JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+-------------+
+| stu_id | sub_name    |
++--------+-------------+
+|      1 | Physics     |
+|      3 | Physics     |
+|      5 | Physics     |
+|      5 | MATHEMATICS |
+|      4 | MATHEMATICS |
+|      2 | History     |
+|      5 | History     |
++--------+-------------+
+7 rows in set (0.001 sec)
+
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> LEFT JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+-------------+
+| stu_id | sub_name    |
++--------+-------------+
+|      1 | Physics     |
+|      3 | Physics     |
+|      5 | Physics     |
+|      5 | MATHEMATICS |
+|      4 | MATHEMATICS |
+|      2 | History     |
+|      5 | History     |
++--------+-------------+
+7 rows in set (0.081 sec)
+
+MariaDB [school_db]> INSET INTO students VALUES (6, 'Anya', 'Kansal', 19, 'A', 'Haryana, India', 'akansal@gmail.com');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INSET INTO students VALUES (6, 'Anya', 'Kansal', 19, 'A', 'Haryana, India', '...' at line 1
+MariaDB [school_db]> INSErT INTO students VALUES (6, 'Anya', 'Kansal', 19, 'A', 'Haryana, India', 'akansal@gmail.com');
+Query OK, 1 row affected (0.016 sec)
+
+MariaDB [school_db]> INSERT INTO students VALUES (7, 'Nikshap', 'Jain', 20, 'A', 'Coimbatore, India', 'njain@gmail.com');
+Query OK, 1 row affected (0.008 sec)
+
+MariaDB [school_db]> select * from students;
++------------+------------+-----------+------+-------+-------------------+-------------------+
+| student_id | first_name | last_name | age  | grade | location          | email             |
++------------+------------+-----------+------+-------+-------------------+-------------------+
+|          1 | Prateek    | Thakur    |   20 | A     | Delhi, India      | pthakur@gmail.com |
+|          2 | Saarika    | Kohli     |   19 | A     | Dehradun, India   | skohli@gmail.com  |
+|          3 | Sayeedul   | Haque     |   19 | A     | Jaipur, India     | shaque@gmail.com  |
+|          4 | Prerna     | Sharma    |   20 | A     | Haryana, India    | psharma@gmail.com |
+|          5 | Depender   | Soni      |   26 | B     | Delhi, India      | dsoni@gmail.com   |
+|          6 | Anya       | Kansal    |   19 | A     | Haryana, India    | akansal@gmail.com |
+|          7 | Nikshap    | Jain      |   20 | A     | Coimbatore, India | njain@gmail.com   |
++------------+------------+-----------+------+-------+-------------------+-------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [school_db]> SELECT
+    ->     -> s.student_id as stu_id,
+    ->     -> sub.sub_name
+    ->     -> FROM
+    ->     -> students s
+    ->     -> LEFT JOIN
+    ->     -> subjects sub
+    ->     -> ON
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '> s.student_id as stu_id,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+ ...' at line 2
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> LEFT JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+-------------+
+| stu_id | sub_name    |
++--------+-------------+
+|      1 | Physics     |
+|      3 | Physics     |
+|      5 | Physics     |
+|      5 | MATHEMATICS |
+|      4 | MATHEMATICS |
+|      2 | History     |
+|      5 | History     |
+|      6 | NULL        |
+|      7 | NULL        |
++--------+-------------+
+9 rows in set (0.005 sec)
+
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> RIGHT JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+-------------+
+| stu_id | sub_name    |
++--------+-------------+
+|      1 | Physics     |
+|      3 | Physics     |
+|      5 | Physics     |
+|      5 | MATHEMATICS |
+|      4 | MATHEMATICS |
+|      2 | History     |
+|      5 | History     |
++--------+-------------+
+7 rows in set (0.003 sec)
+
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id,
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> RIGHT JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+------------+-------------+
+| stu_id | first_name | sub_name    |
++--------+------------+-------------+
+|      1 | Prateek    | Physics     |
+|      3 | Sayeedul   | Physics     |
+|      5 | Depender   | Physics     |
+|      5 | Depender   | MATHEMATICS |
+|      4 | Prerna     | MATHEMATICS |
+|      2 | Saarika    | History     |
+|      5 | Depender   | History     |
++--------+------------+-------------+
+7 rows in set (0.007 sec)
+
+MariaDB [school_db]> describe subjects;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| sub_id          | int(11)     | YES  |     | NULL    |       |
+| sub_name        | varchar(50) | YES  |     | NULL    |       |
+| enrolled_stu_id | int(11)     | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.164 sec)
+
+MariaDB [school_db]> INSERT INTO subjects VALUES (104, 'Psychology', 10);
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [school_db]> select * subjects;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'subjects' at line 1
+MariaDB [school_db]> select * from subjects;
++--------+-------------+-----------------+
+| sub_id | sub_name    | enrolled_stu_id |
++--------+-------------+-----------------+
+|    101 | Physics     |               1 |
+|    101 | Physics     |               3 |
+|    101 | Physics     |               5 |
+|    102 | MATHEMATICS |               5 |
+|    102 | MATHEMATICS |               4 |
+|    103 | History     |               2 |
+|    103 | History     |               5 |
+|    104 | Psychology  |              10 |
++--------+-------------+-----------------+
+8 rows in set (0.003 sec)
+
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id,
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> RIGHT JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+------------+-------------+
+| stu_id | first_name | sub_name    |
++--------+------------+-------------+
+|      1 | Prateek    | Physics     |
+|      3 | Sayeedul   | Physics     |
+|      5 | Depender   | Physics     |
+|      5 | Depender   | MATHEMATICS |
+|      4 | Prerna     | MATHEMATICS |
+|      2 | Saarika    | History     |
+|      5 | Depender   | History     |
+|   NULL | NULL       | Psychology  |
++--------+------------+-------------+
+8 rows in set (0.002 sec)
+
+MariaDB [school_db]> SELECT
+    -> sub.enrolled_stu_id as stu_id,
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> RIGHT JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++--------+------------+-------------+
+| stu_id | first_name | sub_name    |
++--------+------------+-------------+
+|      1 | Prateek    | Physics     |
+|      3 | Sayeedul   | Physics     |
+|      5 | Depender   | Physics     |
+|      5 | Depender   | MATHEMATICS |
+|      4 | Prerna     | MATHEMATICS |
+|      2 | Saarika    | History     |
+|      5 | Depender   | History     |
+|     10 | NULL       | Psychology  |
++--------+------------+-------------+
+8 rows in set (0.002 sec)
+
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id (Left),
+    -> sub.enrolled_stu_id as stu_id (Right),
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> FULL JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(Left),
+sub.enrolled_stu_id as stu_id (Right),
+s.first_name,
+sub.sub_name
+FRO...' at line 2
+MariaDB [school_db]> SELECT
+    -> s.student_id as stu_id_(Left),
+    -> sub.enrolled_stu_id as stu_id_(Right),
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> FULL JOIN
+    -> subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(Left),
+sub.enrolled_stu_id as stu_id_(Right),
+s.first_name,
+sub.sub_name
+FRO...' at line 2
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]>
+MariaDB [school_db]> SELECT
+    -> s.student_id AS Stu_id_left,
+    -> sub.enrolled_stu_id AS stu_id_right,
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> LEFT JOIN subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id
+    ->
+    -> UNION
+    ->
+    -> SELECT
+    -> s.student_id AS Stu_id_left,
+    -> sub.enrolled_stu_id AS stu_id_right,
+    -> s.first_name,
+    -> sub.sub_name
+    -> FROM
+    -> students s
+    -> RIGHT JOIN subjects sub
+    -> ON
+    -> s.student_id = sub.enrolled_stu_id;
++-------------+--------------+------------+-------------+
+| Stu_id_left | stu_id_right | first_name | sub_name    |
++-------------+--------------+------------+-------------+
+|           1 |            1 | Prateek    | Physics     |
+|           3 |            3 | Sayeedul   | Physics     |
+|           5 |            5 | Depender   | Physics     |
+|           5 |            5 | Depender   | MATHEMATICS |
+|           4 |            4 | Prerna     | MATHEMATICS |
+|           2 |            2 | Saarika    | History     |
+|           5 |            5 | Depender   | History     |
+|           6 |         NULL | Anya       | NULL        |
+|           7 |         NULL | Nikshap    | NULL        |
+|        NULL |           10 | NULL       | Psychology  |
++-------------+--------------+------------+-------------+
+10 rows in set (0.021 sec)
+
+MariaDB [school_db]> select * from subjects;
++--------+-------------+-----------------+
+| sub_id | sub_name    | enrolled_stu_id |
++--------+-------------+-----------------+
+|    101 | Physics     |               1 |
+|    101 | Physics     |               3 |
+|    101 | Physics     |               5 |
+|    102 | MATHEMATICS |               5 |
+|    102 | MATHEMATICS |               4 |
+|    103 | History     |               2 |
+|    103 | History     |               5 |
+|    104 | Psychology  |              10 |
++--------+-------------+-----------------+
+8 rows in set (0.003 sec)
+
+MariaDB [school_db]> select * from subjects group by sub_name;
++--------+-------------+-----------------+
+| sub_id | sub_name    | enrolled_stu_id |
++--------+-------------+-----------------+
+|    103 | History     |               2 |
+|    102 | MATHEMATICS |               5 |
+|    101 | Physics     |               1 |
+|    104 | Psychology  |              10 |
++--------+-------------+-----------------+
+4 rows in set (0.009 sec)
+
+MariaDB [school_db]> select sub_id, sub_name, count(enrolled_stu_id) from subjects group by sub_name;
++--------+-------------+------------------------+
+| sub_id | sub_name    | count(enrolled_stu_id) |
++--------+-------------+------------------------+
+|    103 | History     |                      2 |
+|    102 | MATHEMATICS |                      2 |
+|    101 | Physics     |                      3 |
+|    104 | Psychology  |                      1 |
++--------+-------------+------------------------+
+4 rows in set (0.012 sec)
+
+MariaDB [school_db]> select sub_id, sub_name, count(enrolled_stu_id) from subjects GROUP BY sub_name HAVING count(enrolled_stu_id) > 2;
++--------+----------+------------------------+
+| sub_id | sub_name | count(enrolled_stu_id) |
++--------+----------+------------------------+
+|    101 | Physics  |                      3 |
++--------+----------+------------------------+
+1 row in set (0.011 sec)
+
+MariaDB [school_db]> select sub_id, sub_name, count(enrolled_stu_id) from subjects GROUP BY sub_name HAVING count(enrolled_stu_id) >= 2;
++--------+-------------+------------------------+
+| sub_id | sub_name    | count(enrolled_stu_id) |
++--------+-------------+------------------------+
+|    103 | History     |                      2 |
+|    102 | MATHEMATICS |                      2 |
+|    101 | Physics     |                      3 |
++--------+-------------+------------------------+
+3 rows in set (0.005 sec)
+
+MariaDB [school_db]>
