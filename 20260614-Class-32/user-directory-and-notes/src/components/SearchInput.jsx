@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { useKeyboardShortcut } from '../useKeyboardShortcut';
+
+import useKeyboardShortcut from '../useKeyboardShortcut';
 
 function SearchInput({ searchTerm, onSearchChange }) {
     const inputRef = useRef(null);
@@ -9,9 +10,10 @@ function SearchInput({ searchTerm, onSearchChange }) {
         inputRef.current.focus();
     }
 
-    useKeyboardShortcut('a', () => {
-        console.log("use Keyboard pressed..!");
-        alert('A key pressed..!');
+    // Keyboard shortcut usage.
+    useKeyboardShortcut('/', () => {
+        console.log("Focus set to the search field");
+        inputRef.current.focus();
     })
 
     return (
