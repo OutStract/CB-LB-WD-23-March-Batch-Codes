@@ -34,7 +34,7 @@ function Navbar() {
             `}</style>
 
             <Link to="/" className='brand'>🍴 Tasty</Link>
-            <NavLink to="/" end className={linkClass}>Home</NavLink>
+            <NavLink to="/" end className={linkClass} style={{ marginLeft: 'auto' }}>Home</NavLink>
             <NavLink to="/browse" className={linkClass}>Browse</NavLink>
         </nav>
     )

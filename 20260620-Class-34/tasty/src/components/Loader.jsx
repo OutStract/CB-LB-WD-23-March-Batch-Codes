@@ -13,3 +13,5 @@ function Loader({label = 'Loading..'}) {
         </div>
     )
 }
+
+export default Loader
