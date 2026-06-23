@@ -17,6 +17,7 @@ function App() {
 
   const [theme, setTheme] = useState(() => {
     const result = localStorage.getItem('isDark')
+    
     return result
   })
 
@@ -28,6 +29,10 @@ function App() {
   }
 
   useEffect(() => {
+    if(!theme) {
+      localStorage.setItem('isDark', false)
+      return
+    }
     localStorage.setItem('isDark', theme)
   },[theme])
 
