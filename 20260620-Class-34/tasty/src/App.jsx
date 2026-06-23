@@ -19,6 +19,9 @@ function App() {
 
   const [theme, setTheme] = useState(() => {
     const result = localStorage.getItem('isDark')
+    if(result === null) {
+      return false
+    }
     console.log("LOCAL STORAGE",typeof(result))
     return JSON.parse(result)
   })
@@ -32,10 +35,6 @@ function App() {
   }
 
   useEffect(() => {
-    if(!theme) {
-      localStorage.setItem('isDark', false)
-      return
-    }
     localStorage.setItem('isDark', theme)
     console.log("SETTING LOCAL STORAGE",typeof(theme))
   },[theme])
