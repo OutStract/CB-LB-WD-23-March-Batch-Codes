@@ -16,16 +16,31 @@ function App() {
   })
 
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'light'
+    const result = localStorage.getItem('isDark')
+    return result
   })
+
+  console.log(theme)
+
+  function toggleTheme() {
+    
+    setTheme(prev => !prev)
+  }
+
+  useEffect(() => {
+    localStorage.setItem('isDark', theme)
+  },[theme])
+
+
+// For some reason, when reloading the site, theme adds ///// in the local storage
+// After 21 reload the app crashes reaching local storage limits
+// It also makes it annoying to switch to dark mode, because then user has to click 
+
 
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
   }, [favorites])
 
-  useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(theme))
-  }, [theme])
 
   function toggleFavorite(meal) {
     setFavorites((prev) => {
@@ -46,9 +61,7 @@ function App() {
     return favorites.some((m) => m.idMeal === id)
   }
 
-  function toggleTheme() {
-    setTheme((t) => (t === 'light' ? 'dark' : 'light'))
-  }
+  
 
   return (
     <>

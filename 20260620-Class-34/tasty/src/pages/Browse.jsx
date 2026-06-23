@@ -17,17 +17,29 @@ function Browse({ isFavorite, toggleFavorite}) {
 
     // Load category list once.
     useEffect(() => {
-        getCategories().then(setCategories)
+        async function categoryLoad() {
+            const result = await getCategories()
+            setCategories(result)
+            console.log("CATEGORIES",result)
+        }
+        categoryLoad()
     }, [])
+
+    
 
     // Re-fetch whenever the URL's q or category changes.
     useEffect(() =>{
+        // Fixed updating by category instead
+        // Before it was watching the category array, which would never change
+        // So now its watching  category instead
+        console.log("CATEGORIES 2",categories)
         async function load() {
             if(!query && !category) { setMeals([]); return}
             setLoading(true)
             let results = []
             if (category) {
                 results = await getMealsByCategory(category)
+                console.log("RESULTS",results)
             } else {
                 results = await searchMeals(query)
             }
@@ -35,7 +47,7 @@ function Browse({ isFavorite, toggleFavorite}) {
             setLoading(false)
         }
         load()
-    }, [query, categories])
+    }, [query, category])
 
     function runSearch() {
         const q = input.trim()
@@ -75,7 +87,7 @@ function Browse({ isFavorite, toggleFavorite}) {
             <div className='controls'>
                 <input 
                     type='text'
-                    placeholder='Search by nme'
+                    placeholder='Search by name'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {if (e.key === 'Enter') runSearch()}}

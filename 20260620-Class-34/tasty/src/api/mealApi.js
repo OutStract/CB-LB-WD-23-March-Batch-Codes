@@ -19,6 +19,7 @@ export async function getMealById(id) {
 export async function getCategories() {
   const res = await fetch(`${BASE}/categories.php`)
   const data = await res.json()
+  console.log("CATEGORIES DATA", data)
   return data.categories || []
 }
 

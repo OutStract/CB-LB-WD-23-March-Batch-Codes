@@ -2,13 +2,13 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
-import ScrollToTop from './ScrollToTop.jsx'
+import ScrollToTop from './scrollToTop.jsx'
 
 // 😖 Layout receives favoritesCount/theme/toggleTheme ONLY to hand them to Navbar.
 //    It doesn't use them itself. This "pass-through" is prop drilling.
 function Layout({ favoritesCount, theme, toggleTheme }) {
   return (
-    <div className={theme === 'dark' ? 'app dark' : 'app'}>
+    <div className={theme ? 'app dark' : 'app'}>
       <style>{`
         * { box-sizing: border-box; }
         html, body, #root { margin: 0; padding: 0; }

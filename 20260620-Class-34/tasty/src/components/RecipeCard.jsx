@@ -11,11 +11,14 @@ function RecipeCard({ meal, isFavorite, toggleFavorite }) {
     const favorited = canFavorite && isFavorite(meal.idMeal)
     return (
         <div className='recipe-card'>
+             {/* Added space between in the recipe-card to make sure teh fav btns are aligned  */}
             <style>{`
                 .recipe-card {
                 background: #fff; border-radius: 12px; overflow: hidden;
                 box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-                display: flex; flex-direction: column;
+                display: flex; 
+                flex-direction: column;
+                justify-content: space-between;
                 transition: transform 0.15s, box-shadow 0.15s;
                 max-width: 340px;
                 }

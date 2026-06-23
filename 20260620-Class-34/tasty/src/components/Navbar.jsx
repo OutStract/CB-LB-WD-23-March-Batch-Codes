@@ -11,8 +11,12 @@ function Navbar({ favoritesCount, theme, toggleTheme }) {
     <nav className="navbar">
       <style>{`
         .navbar {
-          display: flex; align-items: center; gap: 20px;
-          padding: 14px 24px; background: #1f2933; color: #fff;
+          display: flex; 
+          align-items: center; 
+          gap: 20px;
+          padding: 14px 24px; 
+          background: #1f2933; 
+          color: #fff;
         }
         .navbar .brand {
           font-size: 20px; font-weight: 700; color: #ffd166;
@@ -32,19 +36,30 @@ function Navbar({ favoritesCount, theme, toggleTheme }) {
           background: none; border: 1px solid #52606d; color: #fff;
           border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 15px;
         }
+        
+        .navbar .nav-link-container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
       `}</style>
 
+      {/* Wrapped the navlinks and theme button in a div and applied flex wrap */}
+
       <Link to="/" className="brand">🍴 Tasty</Link>
+      <div className='nav-link-container'>
       <NavLink to="/" end className={linkClass}>Home</NavLink>
       <NavLink to="/browse" className={linkClass}>Browse</NavLink>
       <NavLink to="/categories" className={linkClass}>Categories</NavLink>
       <NavLink to="/favorites" className={linkClass}>
         Favorites <span className="count">{favoritesCount}</span>
       </NavLink>
-
       <button className="theme-btn" onClick={toggleTheme}>
-        {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+        {theme ? '🌙 Dark' : '☀️ Light'}
       </button>
+      </div>
+
     </nav>
   )
 }
