@@ -15,17 +15,20 @@ function App() {
     return saved ? JSON.parse(saved) : []
   })
 
+
+
   const [theme, setTheme] = useState(() => {
     const result = localStorage.getItem('isDark')
-    
-    return result
+    console.log("LOCAL STORAGE",typeof(result))
+    return JSON.parse(result)
   })
 
-  console.log(theme)
+  console.log(typeof(theme))
 
   function toggleTheme() {
-    
+    console.log("BEFORE TOGGLE", typeof(theme))
     setTheme(prev => !prev)
+    console.log("AFTER TOGGLE", typeof(theme))
   }
 
   useEffect(() => {
@@ -34,6 +37,7 @@ function App() {
       return
     }
     localStorage.setItem('isDark', theme)
+    console.log("SETTING LOCAL STORAGE",typeof(theme))
   },[theme])
 
 
