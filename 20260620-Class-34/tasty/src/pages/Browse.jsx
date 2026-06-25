@@ -32,9 +32,9 @@ function Browse({ isFavorite, toggleFavorite}) {
         // Fixed updating by category instead
         // Before it was watching the category array, which would never change
         // So now its watching  category instead
-        console.log("CATEGORIES 2",categories)
         async function load() {
             if(!query && !category) { setMeals([]); return}
+            setInput(query)
             setLoading(true)
             let results = []
             if (category) {
@@ -47,6 +47,7 @@ function Browse({ isFavorite, toggleFavorite}) {
             setLoading(false)
         }
         load()
+
     }, [query, category])
 
     function runSearch() {
@@ -58,6 +59,7 @@ function Browse({ isFavorite, toggleFavorite}) {
         const c = e.target.value
         if (c) setSearchParams({category: c})
         else setSearchParams({})
+    
     }
 
 
@@ -87,7 +89,7 @@ function Browse({ isFavorite, toggleFavorite}) {
             <div className='controls'>
                 <input 
                     type='text'
-                    placeholder='Search by name'
+                    placeholder= {`Search by name: ${category}`}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {if (e.key === 'Enter') runSearch()}}

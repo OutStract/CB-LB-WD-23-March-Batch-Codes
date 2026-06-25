@@ -21,8 +21,10 @@ function Layout({ favoritesCount, theme, toggleTheme }) {
         /* 🌙 Dark theme — toggled by the global theme state in App */
         .app.dark { background: #11161c; color: #e4e7eb; }
         .app.dark .recipe-card { background: #1c232b; }
-        .app.dark .browse input, .app.dark .browse select,
+        .app.dark .browse input, .app.dark .browse select, 
         .app.dark .home input { background: #1c232b; color: #e4e7eb; border-color: #3e4c59; }
+        .app.dark .detail .save-btn {background: #101317}
+        .app.dark .detail .save-btn.active { background: #ef6c4d; color: #fff; }
       `}</style>
 
       <ScrollToTop />
